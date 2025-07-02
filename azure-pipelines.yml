@@ -6,13 +6,13 @@
 trigger:
 - main
 
-variables:
-  IMAGE_NAME: custom-nginx
-  TAG: $(Build.BuildId)
-
 # Link the variable group
 variables:
 - group: hkbu-uat-registry-creds
+- name: IMAGE_NAME
+  value: custom-nginx
+- name: TAG
+  value: $(Build.BuildId)
 
 pool:
   vmImage: ubuntu-latest
