@@ -6,14 +6,20 @@
 trigger:
 - main
 
+variables:
+  IMAGE_NAME: custom-nginx
+  TAG: $(Build.BuildId)
+
+# Link the variable group
+variables:
+- group: hkbu-uat-registry-creds
+
 pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
 - script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    echo "Logging into ACR using username/password..."
+    echo $(ACR_PASSWORD) | docker login $(ACR_LOGIN_SERVER) -u $(ACR_USERNAME) --password-stdin
+  displayName: 'Login container registry'
+
